@@ -3,6 +3,7 @@
 	import { id } from 'date-fns/locale';
 	import type { SKAIDataType } from '../type/dtype';
 	import { bulanKeRomawi } from '../utils/dateHelper';
+	import mammoth from 'mammoth';
 
 	// bulan dalam angka
 	const bulan = new Date().getMonth() + 1;
