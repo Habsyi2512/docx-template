@@ -3,7 +3,9 @@
 	import { id } from 'date-fns/locale';
 	import type { SKAIDataType } from '../type/dtype';
 	import { bulanKeRomawi } from '../utils/dateHelper';
-	import mammoth from 'mammoth';
+	import { renderAsync } from 'docx-preview';
+
+	let container: HTMLElement;
 
 	// bulan dalam angka
 	const bulan = new Date().getMonth() + 1;
@@ -72,13 +74,13 @@
 
 		doc.render({ ...fullData });
 
-		// console.log('Data yang akan dimasukkan:', { ...fullData });
-
 		const out = doc.getZip().generate({
 			type: 'blob',
 			mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 		});
-		saveAs(out, `SKAI_${fullData.nama}_${fullData.kodeSurat}.docx`);
+
+		await renderAsync(out, container);
+		// saveAs(out, `SKAI_${fullData.nama}_${fullData.kodeSurat}.docx`);
 	}
 
 	function extractValues() {
@@ -113,9 +115,9 @@
 	}
 </script>
 
-<form onsubmit={handleSubmit} class="flex min-h-screen flex-col items-center justify-center gap-6 bg-gray-50 px-4">
-	<!-- CARD -->
-	<div class="w-full max-w-2xl space-y-4 rounded-xl bg-white p-6 shadow-lg">
+<div class="min-h-screen space-y-10 gap-x-10 bg-gray-50 px-5 py-20 lg:flex lg:px-10">
+	<form onsubmit={handleSubmit} class="flex h-fit w-full max-w-2xl flex-col space-y-4 rounded-xl bg-white p-6 shadow-lg">
+		<!-- CARD -->
 		<h2 class="text-xl font-semibold text-gray-800">Generate Surat SKAI</h2>
 
 		<!-- Input Kode Surat -->
@@ -142,8 +144,9 @@
 			<textarea
 				id="formatText"
 				bind:value={formatText}
+				required
 				placeholder="Contoh:\nNama Pengirim: ...\n1. Ikan ..."
-				class="min-h-[120px] rounded-md border border-gray-300 p-3 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+				class="mb-3 min-h-[120px] rounded-md border border-gray-300 p-3 text-sm shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none lg:mb-0"
 			></textarea>
 		</div>
 
@@ -151,5 +154,10 @@
 		<button type="submit" class="w-full rounded-md bg-blue-600 px-4 py-2 text-white shadow hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 focus:outline-none">
 			Download DOCX
 		</button>
+	</form>
+
+	<div class="w-full space-y-4 lg:max-w-[60vw]">
+		<h1 class="mx-auto mb-5 w-full rounded-lg border border-gray-100 bg-white p-5 text-xl font-bold text-gray-500 shadow-lg lg:text-3xl">Preview</h1>
+		<div bind:this={container} class="mx-auto mb-5 w-full overflow-auto rounded-lg border border-gray-100 bg-white shadow-lg"></div>
 	</div>
-</form>
+</div>
