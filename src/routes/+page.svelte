@@ -71,7 +71,7 @@
 
 		doc.render({ ...fullData });
 
-		console.log('Data yang akan dimasukkan:', { ...fullData });
+		// console.log('Data yang akan dimasukkan:', { ...fullData });
 
 		const out = doc.getZip().generate({
 			type: 'blob',
