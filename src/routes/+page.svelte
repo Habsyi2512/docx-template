@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { format } from 'date-fns';
 	import { id } from 'date-fns/locale';
-	import type { SKAIDataType } from '../type/dtype';
+	import type { SKAIDataType } from '../types/dtype';
 	import { bulanKeRomawi } from '../utils/dateHelper';
 	import { renderAsync } from 'docx-preview';
 
@@ -79,8 +79,10 @@
 			mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 		});
 
+		console.log('ou', out);
+
 		await renderAsync(out, container);
-		// saveAs(out, `SKAI_${fullData.nama}_${fullData.kodeSurat}.docx`);
+		saveAs(out, `SKAI_${fullData.nama}_${fullData.kodeSurat}.docx`);
 	}
 
 	function extractValues() {
@@ -94,13 +96,13 @@
 		const tanggalPengirimanMatch = formatText.toLocaleLowerCase().match(/tgl pengiriman:\s*(.+)/i);
 
 		const nama = namaMatch ? namaMatch[1].trim().toUpperCase() : '';
-		const alamat = alamatMatch ? alamatMatch[1].trim() : '';
+		const alamat = alamatMatch ? alamatMatch[1].trim().toUpperCase() : '';
 		const noHp = noHpMatch ? noHpMatch[1].trim() : '';
 		const total = totalMatch ? totalMatch[1].trim() : '';
-		const namaKapal = namaKapalMatch ? namaKapalMatch[1].trim() : '';
-		const namaPenerima = namaPenerimaMatch ? namaPenerimaMatch[1].trim() : '';
-		const pelabuhanTujuan = pelabuhanTujuanMatch ? pelabuhanTujuanMatch[1].trim() : '';
-		const tanggalPengiriman = tanggalPengirimanMatch ? tanggalPengirimanMatch[1].trim() : '';
+		const namaKapal = namaKapalMatch ? namaKapalMatch[1].trim().toUpperCase() : '';
+		const namaPenerima = namaPenerimaMatch ? namaPenerimaMatch[1].trim().toUpperCase() : '';
+		const pelabuhanTujuan = pelabuhanTujuanMatch ? pelabuhanTujuanMatch[1].trim().toUpperCase() : '';
+		const tanggalPengiriman = tanggalPengirimanMatch ? tanggalPengirimanMatch[1].trim().toUpperCase() : '';
 
 		return {
 			nama,
