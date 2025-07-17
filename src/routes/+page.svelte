@@ -16,8 +16,6 @@
 	let formatText = $state('');
 	let date = $state(new Date().toISOString().split('T')[0]);
 
-	$inspect(date);
-
 	function extractIkanData(formatText: string) {
 		const ikan: IkanType[] = [];
 
@@ -72,8 +70,6 @@
 			type: 'blob',
 			mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 		});
-
-		console.log('ou', out);
 
 		await renderAsync(out, container);
 		saveAs(out, `SKAI_${fullData.nama}_${fullData.kodeSurat}.docx`);
