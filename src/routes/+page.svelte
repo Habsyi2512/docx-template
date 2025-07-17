@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { format } from 'date-fns';
 	import { id } from 'date-fns/locale';
-	import type { SKAIDataType } from '../types/dtype';
-	import { bulanKeRomawi } from '../utils/dateHelper';
+	import { bulanKeRomawi } from '$lib/utils/dateHelper';
 	import { renderAsync } from 'docx-preview';
+	import type { IkanType, SKAIDataType } from '$lib/types/dtype';
 
 	let container: HTMLElement;
 
@@ -19,13 +19,7 @@
 	$inspect(date);
 
 	function extractIkanData(formatText: string) {
-		const ikan: {
-			no: number;
-			nama: string;
-			koli: string;
-			volume: string;
-			harga: string;
-		}[] = [];
+		const ikan: IkanType[] = [];
 
 		// Regex: cari baris seperti "1. Ikan bilis/Teri Kg : 1.238,6 kg"
 		const regex = /\d+\.\s*(.+?)\s*Kg\s*:\s*([\d.,]+)\s*kg/gi;

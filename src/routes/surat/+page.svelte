@@ -1,6 +1,6 @@
 <script lang="ts">
-	import TabelJenisIkan from '$lib/TabelJenisIkan.svelte';
-	import TabelPengirimIkan from '$lib/TabelPengirimIkan.svelte';
+	import TabelJenisIkan from '$lib/components/TabelJenisIkan.svelte';
+	import TabelPengirimIkan from '$lib/components/TabelPengirimIkan.svelte';
 </script>
 
 <div class="w-full">
