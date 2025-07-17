@@ -11,7 +11,7 @@
 	const bulan = new Date().getMonth() + 1;
 	const bulanToRomawi = bulanKeRomawi(bulan);
 	const tahun = new Date().getFullYear();
-	let kodeSurat = $state('XXXX');
+	let kodeSurat = $state('xxx');
 	let formatNomorSurat = $derived(`500.5.4/DPPP/SKAI/${kodeSurat}/${bulanToRomawi}/${tahun}`);
 	let formatText = $state('');
 	let date = $state(new Date().toISOString().split('T')[0]);
