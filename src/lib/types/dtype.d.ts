@@ -3,20 +3,21 @@ export type IkanType = {
 	nama: string;
 	koli: string;
 	volume: string;
-	harga: string;
+	harga: string | undefined;
 };
 
 export type SKAIDataType = {
-	nama: string;
-	alamat: string;
-	noHp: string;
+	namaPengirim: string;
+	alamatPengirim: string;
+	noHpPengirim: string;
 	namaPenerima: string;
-	total: string;
+	alamatPenerima: string;
 	pelabuhanTujuan: string;
 	namaKapal: string;
 	tanggalPengiriman: string;
 	ikan: IkanType[];
 	totalVolume: string;
-	tanggal: string;
+	tanggalTTD: string;
 	kodeSurat: string;
+	totalHarga: string;
 };

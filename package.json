@@ -16,6 +16,7 @@
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
 		"@eslint/js": "^9.18.0",
+		"@supabase/auth-helpers-sveltekit": "^0.13.0",
 		"@sveltejs/adapter-vercel": "^5.7.2",
 		"@sveltejs/kit": "^2.22.0",
 		"@sveltejs/vite-plugin-svelte": "^6.0.0",
@@ -30,6 +31,7 @@
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
+		"supabase": "^2.31.4",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"tailwindcss": "^4.0.0",
@@ -38,10 +40,14 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
+		"@supabase/ssr": "^0.6.1",
+		"@supabase/supabase-js": "^2.52.0",
 		"date-fns": "^4.1.0",
+		"date-fns-tz": "^3.2.0",
 		"docx-preview": "^0.3.5",
 		"docxtemplater": "^3.65.2",
 		"file-saver": "^2.0.5",
+		"fuse.js": "^7.1.0",
 		"html2pdf.js": "^0.10.3",
 		"mammoth": "^1.9.1",
 		"pizzip": "^3.2.0"
