@@ -1,0 +1,8 @@
+{
+	"build": {
+		"env": {
+			"PUBLIC_SUPABASE_URL": "https://xgmrifssjqvpakunovlp.supabase.co",
+			"PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnbXJpZnNzanF2cGFrdW5vdmxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3NjQxMzAsImV4cCI6MjA2ODM0MDEzMH0.qwZbrqnT9jEhFnpUBp9iNiCzCJpVbcPYNPh8Dbn5-94"
+		}
+	}
+}
