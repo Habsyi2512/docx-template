@@ -1,6 +1,7 @@
 // src/routes/auth/+page.server.ts
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
+
 
 export const actions: Actions = {
 	login: async ({ request, locals: { supabase } }) => {
@@ -19,6 +20,8 @@ export const actions: Actions = {
 			});
 		}
 
-		throw redirect(303, '/dashboard'); // sukses login, redirect ke halaman utama
+		return {
+			redirectTo: '/dashbaord'
+		}
 	}
 };

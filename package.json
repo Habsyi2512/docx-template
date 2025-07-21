@@ -50,6 +50,7 @@
 		"fuse.js": "^7.1.0",
 		"html2pdf.js": "^0.10.3",
 		"mammoth": "^1.9.1",
-		"pizzip": "^3.2.0"
+		"pizzip": "^3.2.0",
+		"svelte-sonner": "^1.0.5"
 	}
 }

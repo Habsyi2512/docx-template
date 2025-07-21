@@ -2,9 +2,10 @@
 
 <script>
 	import '../app.css';
-	import { invalidate } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import Container from '$lib/components/Container.svelte';
+	import { toast, Toaster } from 'svelte-sonner';
 
 	let { data, children } = $props();
 	let { session, supabase } = $derived(data);
@@ -20,18 +21,22 @@
 	});
 
 	async function handleLogout() {
-		await supabase.auth.signOut();
-		invalidate('supabase:auth');
-
-		// Redirect to home after logout
-		window.location.href = '/';
+		const { error } = await supabase.auth.signOut();
+		if (error) {
+			toast.error('Gagal Logout: ' + error.message);
+		} else {
+			invalidate('supabase:auth');
+			toast.success('Logout Berhasil!');
+			goto('/auth', { replaceState: true, invalidateAll: true });
+		}
 	}
 </script>
 
+<Toaster position="top-right" />
 <!-- Glassmorphism Header -->
 <header class="fixed top-4 left-1/2 z-50 w-[90%] max-w-5xl -translate-x-1/2 transform rounded-2xl border border-white/30 bg-white/20 shadow-lg backdrop-blur-md">
 	<nav class="flex h-16 items-center justify-between px-6">
-		<div class="text-sm lg:text-lg font-semibold tracking-wide text-white">
+		<div class="text-sm font-semibold tracking-wide text-white lg:text-lg">
 			<a href="/">Docx-Template</a>
 		</div>
 		<div class="flex space-x-2 text-base font-medium text-white">
