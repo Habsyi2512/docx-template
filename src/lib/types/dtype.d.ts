@@ -20,4 +20,5 @@ export type SKAIDataType = {
 	tanggalTTD: string;
 	kodeSurat: string;
 	totalHarga: string;
+	asalBahanBaku: string;
 };

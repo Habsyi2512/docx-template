@@ -4,7 +4,7 @@ export function extractIkanData(formatText: string) {
 		const ikan: IkanType[] = [];
 
 		// Regex: cari baris seperti "1. Ikan bilis/Teri Kg : 1.238,6 kg"
-		const regex = /\d+\.\s*(.+?)\s*(?:Kg)?\s*:\s*([\d.,]+)\s*kg/gi;
+		const regex = /\d+\.\s*(.+?)\s*(?:k[gG])?\s*:?\s*([\d.,]+)\s*(?:k[gG])?/gi;
 		const matches = [...formatText.matchAll(regex)];
 
 		matches.forEach((match, index) => {

@@ -8,9 +8,17 @@
 	import { downloadDocx } from '$lib/utils/downloadDocx';
 	import { generateDocx } from '$lib/utils/generateDocx';
 	import { toZonedTime } from 'date-fns-tz';
+	import { toast } from 'svelte-sonner';
+	import type { PageProps } from './$types';
 
-	let fileContent = $state<{ fileName: string; fileContent: Blob } | null>(null);
+	let docxContent = $state<{ fileName: string; fileContent: Blob } | null>(null);
+	// let pdfContent = $state<{ fileName: string; fileContent: Blob } | null>(null);
 	let isLoading = $state(false);
+
+	let { data }: PageProps = $props();
+	let bahan_baku = $derived(data.bahan_baku);
+
+	let selectedBahanBaku = $state(data.bahan_baku?.[0]?.name ?? '');
 
 	// bulan dalam angka
 	const timeZone = 'Asia/Jakarta';
@@ -26,6 +34,7 @@
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
+		console.log(selectedBahanBaku);
 
 		isLoading = true;
 		try {
@@ -39,7 +48,8 @@
 				...dataIkan,
 				tanggalTTD,
 				kodeSurat,
-				totalHarga: ''
+				totalHarga: '',
+				asalBahanBaku: selectedBahanBaku.toLocaleUpperCase()
 			};
 
 			const formData = new FormData();
@@ -53,10 +63,15 @@
 			const result = await response.json();
 			const dataToGenerate = result.data as SKAIDataType;
 			const resultData = await generateDocx(dataToGenerate);
-			fileContent = resultData;
+			docxContent = resultData;
+
+			// const pdf = await getPDF({ ...resultData });
+			// pdfContent = pdf;
 		} catch (error) {
 			console.error('Error generating document:', error);
-			fileContent = null;
+			docxContent = null;
+			// pdfContent = null;
+			toast.error('Gagal generate dokumen: ' + (error instanceof Error ? error.message : 'Unknown error'));
 		} finally {
 			isLoading = false;
 		}
@@ -92,6 +107,21 @@
 			/>
 		</div>
 
+		<!-- Input Bahan Baku -->
+		<div class="flex flex-col">
+			<label for="bahanBaku" class="mb-1 text-sm font-medium text-blue-500">Asal Bahan Baku</label>
+			<select
+				placeholder="Pilih Bahan Baku"
+				bind:value={selectedBahanBaku}
+				id="bahanBaku"
+				class="rounded-md border border-white/20 bg-white/40 p-2 text-sm text-blue-600 placeholder-blue-600/60 shadow-sm backdrop-blur-sm focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none"
+			>
+				{#each bahan_baku as item}
+					<option value={item.name} class="capitalize">{item.name}</option>
+				{/each}
+			</select>
+		</div>
+
 		<!-- Textarea Format -->
 		<div class="flex flex-col">
 			<label for="formatText" class="mb-1 text-sm font-medium text-blue-500">Masukkan Format Chat</label>
@@ -120,13 +150,13 @@
 			<div class="layout-result mx-auto mb-5 w-full overflow-auto rounded-lg border border-white/30 bg-white/20 shadow-lg backdrop-blur-md">
 				<p class="p-4 text-center font-medium text-white">Sedang generate dokumen...</p>
 			</div>
-		{:else if fileContent}
+		{:else if docxContent}
 			<div class="mx-auto mb-5 w-full overflow-auto rounded-lg border border-white/30 bg-white/20 shadow-lg backdrop-blur-md">
 				<button
-					onclick={() => downloadDocx({ fileName: fileContent!.fileName, fileContent: fileContent!.fileContent })}
+					onclick={() => downloadDocx({ fileName: docxContent!.fileName, fileContent: docxContent!.fileContent })}
 					class="block w-full cursor-pointer rounded-lg bg-blue-500/60 p-4 text-center text-white hover:bg-blue-600/80"
 				>
-					Download {fileContent.fileName}
+					Download Ms. Word {docxContent.fileName}
 				</button>
 			</div>
 		{/if}

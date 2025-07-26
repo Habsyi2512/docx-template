@@ -15,7 +15,15 @@ export const parseVolumeString = (volumeStr: string): number => {
 };
 
 export const formatVolume = (volume: number): string => {
-	return volume % 1 === 0 
-		? volume.toString() 
-		: volume.toFixed(2).replace('.', ',');
+	if (volume < 1000) {
+		return volume % 1 === 0
+			? volume.toString()
+			: volume.toFixed(2).replace('.', ',');
+	} else {
+		return volume.toLocaleString('id-ID', {
+			minimumFractionDigits: volume % 1 === 0 ? 0 : 2,
+			maximumFractionDigits: 2
+		});
+	}
 };
+

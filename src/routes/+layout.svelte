@@ -32,6 +32,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Docx-Template</title>
+	<meta name="description" content="This is where the description goes for SEO" />
+</svelte:head>
+
 <Toaster position="top-right" />
 <!-- Glassmorphism Header -->
 <header class="fixed top-4 left-1/2 z-50 w-[90%] max-w-5xl -translate-x-1/2 transform rounded-2xl border border-white/30 bg-white/20 shadow-lg backdrop-blur-md">
